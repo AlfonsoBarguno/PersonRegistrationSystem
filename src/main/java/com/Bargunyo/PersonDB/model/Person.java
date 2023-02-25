@@ -41,6 +41,8 @@ public class Person {
     @Positive
     private BigDecimal salary;
 
+    private String photoFileName;
+
     public Long getId() {
         return id;
     }
