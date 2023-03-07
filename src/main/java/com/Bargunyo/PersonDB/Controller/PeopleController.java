@@ -1,14 +1,18 @@
 package com.Bargunyo.PersonDB.Controller;
 
+import com.Bargunyo.PersonDB.Exceptions.StorageException;
 import com.Bargunyo.PersonDB.Data.FileStorageRepository;
 import com.Bargunyo.PersonDB.Data.PersonRepository;
+import com.Bargunyo.PersonDB.Service.PersonService;
 import com.Bargunyo.PersonDB.model.Person;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,15 +41,18 @@ public class PeopleController {
 
     private FileStorageRepository fileStorageRepository;
 
-    public PeopleController(PersonRepository personRepository, FileStorageRepository fileStorageRepository) {
+    private PersonService personService;
+
+    public PeopleController(PersonRepository personRepository, FileStorageRepository fileStorageRepository, PersonService personService) {
         this.personRepository = personRepository;
         this.fileStorageRepository= fileStorageRepository;
+        this.personService = personService;
     }
 
     @ModelAttribute("people")
-    public Iterable<Person> getPeople() {
+    public Page<Person> getPeople(@PageableDefault(size=3) Pageable page) {
 
-        return personRepository.findAll();
+        return personService.findAll(page);
     }
 
     @ModelAttribute
@@ -64,7 +72,7 @@ public class PeopleController {
     }
 
     @GetMapping("/images/{resource}")
-    public ResponseEntity<Resource> getResource(@PathVariable String resource){
+    public ResponseEntity<Resource> getResource(@PathVariable String resource) throws MalformedURLException {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, format(DISPOSITION,resource))
@@ -74,17 +82,19 @@ public class PeopleController {
 
     @PostMapping
     //@ResponseStatus(HttpStatus.CREATED)
-    public String savePerson(@Valid Person person, Errors errors, @RequestParam("photoFileName") MultipartFile photoFile) throws IOException {
+    public String savePerson(Model model,@Valid Person person, Errors errors, @RequestParam("photoFileName") MultipartFile photoFile) throws IOException {
         log.info(person);
         log.info("File name: " + photoFile.getOriginalFilename());
         log.info("File size: " + photoFile.getSize());
         log.info("Errors: " + errors);
 
         if (!errors.hasErrors()) {
-            fileStorageRepository.save(photoFile.getOriginalFilename(),photoFile.getInputStream());
-            personRepository.save(person);
-            return "redirect:people";
-        }
+
+                personService.save(person, photoFile.getInputStream());
+                return "redirect:people";
+
+            }
+
         return "people";
     }
 
@@ -94,7 +104,7 @@ public class PeopleController {
         log.info(selections);
 
         if(selections.isPresent()) {
-            personRepository.deleteAllById(selections.get());
+            personService.deleteAllById(selections.get());
         }
 
         return "redirect:people";
