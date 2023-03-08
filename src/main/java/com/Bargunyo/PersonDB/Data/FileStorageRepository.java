@@ -11,7 +11,9 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 //It's not an interface because we are not using JpaRepository
 @Repository
@@ -54,14 +56,14 @@ public class FileStorageRepository {
 
     }
 
-    public void deleteAllByName(Iterable<String> fileNames) {
+    public void deleteAllByName(Collection<String> fileNames) {
 
         //With this try/catch, the deleting method wont be finished if there any error
         //in some of the files. But the files alredeady deleted will be gone.
         //Options: 1) try/catch just in Files.deleteIfExists
         //         2) add @Transactional in the service method
         try {
-            for (String filename: fileNames) {
+            for (String filename: fileNames.stream().filter(f->f!=null).collect(Collectors.toSet())) {
                 Path filePath = Path.of(storageFolder).resolve(filename).normalize();
                 Files.deleteIfExists(filePath);
             }

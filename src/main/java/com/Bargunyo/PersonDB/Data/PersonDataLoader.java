@@ -3,7 +3,6 @@ package com.Bargunyo.PersonDB.Data;
 import com.Bargunyo.PersonDB.model.Person;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

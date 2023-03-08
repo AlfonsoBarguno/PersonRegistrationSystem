@@ -52,4 +52,25 @@ public class Person {
     }
 
 
+    /*
+    * This method for parsing de csvLine will depend
+    * on de format of the csvFile
+    * */
+
+    public static Person parse(String csvLine) {
+
+        //we split the line in fields, which are separated by comas
+        String[] fields = csvLine.split(";\\s*");
+
+            System.out.println(csvLine);
+
+        LocalDate.of(1980,7,9);
+
+        //The date field is number 10
+        LocalDate dob = LocalDate.parse(fields[3],DateTimeFormatter.ofPattern("M/d/yyyy"));
+
+        //the first field, the id, will be provided by the program
+        //the third field is the name, the fifth is the lastName, etc...
+        return new Person(null, fields[0], fields[1], fields[2], dob, new BigDecimal(fields[4]),null);
+    }
 }
