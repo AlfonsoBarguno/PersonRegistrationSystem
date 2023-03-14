@@ -1,6 +1,6 @@
 # PersonRegistrationSystem
 
-![cover](https://github.com/AlfonsoBarguno/PersonRegistrationSystem/blob/main/multitud-personas-gran-grupo-diferentes-personas-vector_627350-763.avif)
+![cover](https://github.com/AlfonsoBarguno/PersonRegistrationSystem/main/multitud-personas-gran-grupo-diferentes-personas-vector_627350-763.avif)
 
 
 ## Table of contents
