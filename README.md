@@ -1,7 +1,6 @@
 # PersonRegistrationSystem
 
-![cover](https://github.com/AlfonsoBarguno/PersonRegistrationSystem/main/multitud-personas-gran-grupo-diferentes-personas-vector_627350-763.avif)
-
+![cover](https://user-images.githubusercontent.com/94359346/224974234-daee636d-e91f-4fdb-ab99-d28883398416.png)
 
 ## Table of contents
 * [General info](#general-info)
@@ -9,23 +8,38 @@
 * [Setup](#setup)
 
 ## General info
-Final bootcamp project demonstrating the use of Java and SpringBoot to build a microservice to be used by an online bank.
-The system has 4 types of accounts, StudentChecking, Checking, Savings, and CreditCard. You can access either as an Admin or as a User, create an Account Holder or a Third Party user, and chose between four types of accounts. 
-The system is able to modify accounts, make transfers, apply interest rates and penalty fees.
-It is based in a SQL Database (you can change the name in in the application.properties file), has a Basic Auth level of security for Admins and Users and I'm currently working in the integration tests.
+People registration system build with Java, Gradle, SpringBoot, Bootstrap and Thymeleaf, where you can add, edit and delete person objects and attributes, one of which is a photo file. All these fields are validated. The system can be translated to english, french and catalan. You can browse through differente pages (now is setup for just three entrys).
+
+
+![Captura de pantalla 2023-03-14 113931](https://user-images.githubusercontent.com/94359346/224975921-c017f235-74e2-400d-acdf-d38503193e6d.png)
+
+
+There is an easy and intuitive form to save new people:
+
+
+![Captura de pantalla 2023-03-14 114248](https://user-images.githubusercontent.com/94359346/224976305-cd38334e-7128-4986-890a-49f8a4450bcc.png)
+
+
+And also has a feature to import a CSV file in zip format to add the information automatically, no matter the number of entrys:
+
+
+![Captura de pantalla 2023-03-14 114445](https://user-images.githubusercontent.com/94359346/224976899-ed87aa66-54f5-4a7d-ae6f-af244609219a.png)
+
+
+For this feature you wil have to tweak the parse method in the Person class and the PersonService to adjust the parameters to your needs.
+
 
 ## Technologies
 Project is created with:
 - Java 18
 - Spring Boot
-- Maven
-- MySQL Driver
+- Gradle
+- Hibernate
 - Spring Data JPA
 - Spring Web
 - Spring Boot DevTools
-- Spring Security
-- Project lombok
-- SQL
+- Bootstrap
+- Thymeleaf
 
 
 	
@@ -38,12 +52,10 @@ To run this project, download it using the git command *git clone* to the folder
     D:\ cd myProject
     ```
     ```
-    D:\ myProject>git clone https://github.com/AlfonsoBarguno/BankAppProject.git
+    D:\ myProject>git clone https://github.com/AlfonsoBarguno/PersonRegistrationSystem.git
     ```
 
-First, you have to create an Admin User. The Admin can then create an AccountHolder or a ThridParty who can chose between the different accounts, depending on his interests (be aware that there are Primary and Secondary Owners). 
-The AccountHolder can check his balance and make transfers to other accounts, and can access a list of the sending and receiving transfers. The Admin can substract and add amounts to any account, as well as delete or create accounts and AccountHolders.
-Finally, every accaount has its proper characteristics (interests rates, penalty fees, minimum balance, etc.)
+
 
 
 
