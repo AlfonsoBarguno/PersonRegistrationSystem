@@ -28,7 +28,7 @@ The system adapts the currency depending on the country and can be translated to
 ![Captura de pantalla 2023-03-15 151506](https://user-images.githubusercontent.com/94359346/225336126-a68829ca-18ea-4cf4-aeb1-dea1ce311fda.png)
 
 
- And also has a feature to import a CSV file in zip format to add the information automatically, no matter the number of entrys. For this feature you wil have to tweak the parse method in the Person class and the PersonService to adjust the parameters to your needs.
+ And also has a feature to import a CSV file in zip format to add the information automatically, no matter the number of entrys. For this feature you will have to tweak the parse method in the Person class and the PersonService to adjust the parameters to your needs.
 
 ![Captura de pantalla 2023-03-15 151636](https://user-images.githubusercontent.com/94359346/225336694-6775d3ab-cc43-468d-b6e3-a38a90d356a2.png)
 
